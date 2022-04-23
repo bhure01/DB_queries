@@ -1,0 +1,10 @@
+Unique key stores only distinct values, no duplicate/identical values will be stored.
+a table can have or can't have a unique key.It is not compulsory.
+a table can have multiple columns with unique key.
+It can accept null value. But only one null value per column.
+we can create table even without using any unique key. It is not compulsory.
+we can add unique key for those columns also which are not defined with auto_increment constants. 
+unique key can be made as foreign key in another table.
+unique key can used on those columns also which are defined or not defined wuith auto_increment constraint. Not a issue.
+We can able to drop/delete primary key after table creation.
+We can add primary key in a table by 2 ways- while creating table and also by alter the existing table later.
