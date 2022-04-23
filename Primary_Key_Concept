@@ -1,0 +1,10 @@
+Primary key is used to identify each records of a table uniquely.
+Primary key column must be unique. It always contains a unique value.
+Primary key column doen't accept duplicate values.
+Primary key column cann't be null or empty.
+Primary key must be assigned compulsory for the columns defined with auto_increment constraint.
+A table can have or can't have a primary key. It is not compulsory.
+A table can have only 1 primary key. Multiple keys are not accepted.
+In a table there may be one primay key or many other fileds also have primary key by combining together.
+We can add primary key in a table by 2 ways- while creating table and also by alter the existing table later.
+We can able to drop/delete primary key after table creation,except the above point no.5
