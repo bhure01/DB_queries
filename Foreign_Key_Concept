@@ -1,0 +1,14 @@
+Foreign key is used to link one or more table together. So, it is also called as "Referencing key".
+In a table, there can be single or multiple foreign keys based on the requirement that how many tables to be linked.
+We can add foreign key in 2 ways- while creating table and also by altering the existing table later.
+We can drop/delete foreign key by altering the table.
+Foreign key matches the primary key field/column of another table. (unique key will be considered if there is no primary key)
+It means, foreign key field in one table referes to primary key field of other table.
+Foreign key identifies each row of another table uniquely that matches REFERENTIAL INTEGRITY.
+primary key is defined in parent table(table1) and foreign key is defined in child table(table2).
+Parent table holds the initial column values and the column values of child table refers to parent table column values.
+Optionals: Reference options- used to ensure how foreign key maintains referential integrity using ON DELETE & ON UPDATE clauses between parent & child table.
+there are many tyepes of Reference options we can define as follows,
+CASCADE- used when we delete (ON DELETE CASCADE) or update (ON UPDATE CASCADE) any row from parent table, then the values of matching rows in child table also will get deleted/updated automatically.
+
+
