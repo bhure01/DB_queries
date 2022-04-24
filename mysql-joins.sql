@@ -149,3 +149,360 @@ mysql> SELECT officers.officer_name, officers.address, students.course_name
 
 mysql> 
 
+mysql> create table students(student_id int,stud_fname varchar(50),stud_lname varchar(50),city varchar(50));
+Query OK, 0 rows affected (0.72 sec)
+mysql> insert into students(student_id,stud_fname,stud_lname,city) values(1,'devine','putin','france'),(2,'michael','clark','australia'),(3,'ethon','miller','england'),(4,'mark','strauss','america');
+Query OK, 4 rows affected (0.15 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> create table technologies(student_id int,tech_id int,inst_name varchar(20),technology varchar(30));
+Query OK, 0 rows affected (1.51 sec)
+
+mysql> insert into technologies(student_id,tech_id,inst_name,technology) values(1,1,'java training institute','java'),(2,2,'chroma campus','angular'),(3,3,'cetpa infotech','big data'),(4,4,'aptron','ios');
+ERROR 1406 (22001): Data too long for column 'inst_name' at row 1
+mysql> insert into technologies(student_id,tech_id,inst_name,technology) values(1,1,'java institute','java'),(2,2,'chroma campus','angular'),(3,3,'cetpa infotech','big data'),(4,4,'aptron','ios');
+Query OK, 4 rows affected (0.13 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from students;
++------------+------------+------------+-----------+
+| student_id | stud_fname | stud_lname | city      |
++------------+------------+------------+-----------+
+|          1 | devine     | putin      | france    |
+|          2 | michael    | clark      | australia |
+|          3 | ethon      | miller     | england   |
+|          4 | mark       | strauss    | america   |
++------------+------------+------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from technologies;
++------------+---------+----------------+------------+
+| student_id | tech_id | inst_name      | technology |
++------------+---------+----------------+------------+
+|          1 |       1 | java institute | java       |
+|          2 |       2 | chroma campus  | angular    |
+|          3 |       3 | cetpa infotech | big data   |
+|          4 |       4 | aptron         | ios        |
++------------+---------+----------------+------------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT students.stud_fname, students.stud_lname, students.city, technologies.technology    
+    -> FROM students   
+    -> INNER JOIN technologies    
+    -> ON students.student_id = technologies.tech_id; 
++------------+------------+-----------+------------+
+| stud_fname | stud_lname | city      | technology |
++------------+------------+-----------+------------+
+| devine     | putin      | france    | java       |
+| michael    | clark      | australia | angular    |
+| ethon      | miller     | england   | big data   |
+| mark       | strauss    | america   | ios        |
++------------+------------+-----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> create table emp(emp_id int,emp_age int,emp_name varchar(30));
+Query OK, 0 rows affected (0.70 sec)
+
+mysql> insert into emp values(1,25,'rahul'),(2,30,'ganesh'),(3,32,'john'),(4,36,'adam'),(5,25,'danny');
+Query OK, 5 rows affected (0.14 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++--------+---------+----------+
+| emp_id | emp_age | emp_name |
++--------+---------+----------+
+|      1 |      25 | rahul    |
+|      2 |      30 | ganesh   |
+|      3 |      32 | john     |
+|      4 |      36 | adam     |
+|      5 |      25 | danny    |
++--------+---------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from students;
++------------+------------+------------+-----------+
+| student_id | stud_fname | stud_lname | city      |
++------------+------------+------------+-----------+
+|          1 | devine     | putin      | france    |
+|          2 | michael    | clark      | australia |
+|          3 | ethon      | miller     | england   |
+|          4 | mark       | strauss    | america   |
++------------+------------+------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from technologies;
++------------+---------+----------------+------------+
+| student_id | tech_id | inst_name      | technology |
++------------+---------+----------------+------------+
+|          1 |       1 | java institute | java       |
+|          2 |       2 | chroma campus  | angular    |
+|          3 |       3 | cetpa infotech | big data   |
+|          4 |       4 | aptron         | ios        |
++------------+---------+----------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select students.stud_fname,students.city,technologies.inst_name,emp.emp_age,emp.emp_name from emp inner join students on emp.emp_id=students.student_id inner join technologies on emp.emp_id=technologies.tech_id;
++------------+-----------+----------------+---------+----------+
+| stud_fname | city      | inst_name      | emp_age | emp_name |
++------------+-----------+----------------+---------+----------+
+| devine     | france    | java institute |      25 | rahul    |
+| michael    | australia | chroma campus  |      30 | ganesh   |
+| ethon      | england   | cetpa infotech |      32 | john     |
+| mark       | america   | aptron         |      36 | adam     |
++------------+-----------+----------------+---------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT student_id, inst_name, city, technology    
+    -> FROM students   
+    -> INNER JOIN technologies    
+    -> USING (student_id);  
++------------+----------------+-----------+------------+
+| student_id | inst_name      | city      | technology |
++------------+----------------+-----------+------------+
+|          1 | java institute | france    | java       |
+|          2 | chroma campus  | australia | angular    |
+|          3 | cetpa infotech | england   | big data   |
+|          4 | aptron         | america   | ios        |
++------------+----------------+-----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT tech_id, inst_name, city, technology    
+    -> FROM students   
+    -> INNER JOIN technologies    
+    -> USING (student_id) WHERE technology = "Java";  
++---------+----------------+--------+------------+
+| tech_id | inst_name      | city   | technology |
++---------+----------------+--------+------------+
+|       1 | java institute | france | java       |
++---------+----------------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> create table contact(college_id int,cellphone int, homephone int);
+Query OK, 0 rows affected (1.29 sec)
+
+mysql> insert into contact values(1,111111,222222),(2,1212121,33333),(3,123123,321256),(4,324586,456321);
+Query OK, 4 rows affected (0.14 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from contact;
++------------+-----------+-----------+
+| college_id | cellphone | homephone |
++------------+-----------+-----------+
+|          1 |    111111 |    222222 |
+|          2 |   1212121 |     33333 |
+|          3 |    123123 |    321256 |
+|          4 |    324586 |    456321 |
++------------+-----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT student_id, inst_name, city, technology, cellphone  
+    -> FROM students   
+    -> INNER JOIN technologies USING (student_id)  
+    -> INNER JOIN contact ORDER BY student_id;  
++------------+----------------+-----------+------------+-----------+
+| student_id | inst_name      | city      | technology | cellphone |
++------------+----------------+-----------+------------+-----------+
+|          1 | java institute | france    | java       |    111111 |
+|          1 | java institute | france    | java       |   1212121 |
+|          1 | java institute | france    | java       |    123123 |
+|          1 | java institute | france    | java       |    324586 |
+|          2 | chroma campus  | australia | angular    |    111111 |
+|          2 | chroma campus  | australia | angular    |   1212121 |
+|          2 | chroma campus  | australia | angular    |    123123 |
+|          2 | chroma campus  | australia | angular    |    324586 |
+|          3 | cetpa infotech | england   | big data   |    111111 |
+|          3 | cetpa infotech | england   | big data   |   1212121 |
+|          3 | cetpa infotech | england   | big data   |    123123 |
+|          3 | cetpa infotech | england   | big data   |    324586 |
+|          4 | aptron         | america   | ios        |    111111 |
+|          4 | aptron         | america   | ios        |   1212121 |
+|          4 | aptron         | america   | ios        |    123123 |
+|          4 | aptron         | america   | ios        |    324586 |
++------------+----------------+-----------+------------+-----------+
+16 rows in set (0.00 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_joins |
++-----------------+
+| contact         |
+| emp             |
+| officers        |
+| students        |
+| technologies    |
++-----------------+
+5 rows in set (0.01 sec)
+
+
+
+
+
+mysql> create table joins(id int,age int);
+Query OK, 0 rows affected (1.34 sec)
+
+mysql> create table join1(id int,fname varchar(20),lname varchar(20));
+Query OK, 0 rows affected (1.64 sec)
+
+mysql> insert into joins(id,age) values(1,10),(2,12),(3,15),(4,20),(5,23);
+Query OK, 5 rows affected (0.12 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into join1(fname,lname) values('datta','bhure'),('ganesh','wade'); 
+Query OK, 2 rows affected (0.15 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from joins;
++------+------+
+| id   | age  |
++------+------+
+|    1 |   10 |
+|    2 |   12 |
+|    3 |   15 |
+|    4 |   20 |
+|    5 |   23 |
++------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from join1;
++------+--------+-------+
+| id   | fname  | lname |
++------+--------+-------+
+| NULL | datta  | bhure |
+| NULL | ganesh | wade  |
++------+--------+-------+
+2 rows in set (0.00 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_joins |
++-----------------+
+| contact         |
+| emp             |
+| join1           |
+| joins           |
+| officers        |
+| students        |
+| technologies    |
++-----------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from contact;
++------------+-----------+-----------+
+| college_id | cellphone | homephone |
++------------+-----------+-----------+
+|          1 |    111111 |    222222 |
+|          2 |   1212121 |     33333 |
+|          3 |    123123 |    321256 |
+|          4 |    324586 |    456321 |
++------------+-----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from students;
++------------+------------+------------+-----------+
+| student_id | stud_fname | stud_lname | city      |
++------------+------------+------------+-----------+
+|          1 | devine     | putin      | france    |
+|          2 | michael    | clark      | australia |
+|          3 | ethon      | miller     | england   |
+|          4 | mark       | strauss    | america   |
++------------+------------+------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from contact cross join students;
++------------+-----------+-----------+------------+------------+------------+-----------+
+| college_id | cellphone | homephone | student_id | stud_fname | stud_lname | city      |
++------------+-----------+-----------+------------+------------+------------+-----------+
+|          4 |    324586 |    456321 |          1 | devine     | putin      | france    |
+|          3 |    123123 |    321256 |          1 | devine     | putin      | france    |
+|          2 |   1212121 |     33333 |          1 | devine     | putin      | france    |
+|          1 |    111111 |    222222 |          1 | devine     | putin      | france    |
+|          4 |    324586 |    456321 |          2 | michael    | clark      | australia |
+|          3 |    123123 |    321256 |          2 | michael    | clark      | australia |
+|          2 |   1212121 |     33333 |          2 | michael    | clark      | australia |
+|          1 |    111111 |    222222 |          2 | michael    | clark      | australia |
+|          4 |    324586 |    456321 |          3 | ethon      | miller     | england   |
+|          3 |    123123 |    321256 |          3 | ethon      | miller     | england   |
+|          2 |   1212121 |     33333 |          3 | ethon      | miller     | england   |
+|          1 |    111111 |    222222 |          3 | ethon      | miller     | england   |
+|          4 |    324586 |    456321 |          4 | mark       | strauss    | america   |
+|          3 |    123123 |    321256 |          4 | mark       | strauss    | america   |
+|          2 |   1212121 |     33333 |          4 | mark       | strauss    | america   |
+|          1 |    111111 |    222222 |          4 | mark       | strauss    | america   |
++------------+-----------+-----------+------------+------------+------------+-----------+
+16 rows in set (0.00 sec)
+
+mysql> select * from students cross join contact;
++------------+------------+------------+-----------+------------+-----------+-----------+
+| student_id | stud_fname | stud_lname | city      | college_id | cellphone | homephone |
++------------+------------+------------+-----------+------------+-----------+-----------+
+|          4 | mark       | strauss    | america   |          1 |    111111 |    222222 |
+|          3 | ethon      | miller     | england   |          1 |    111111 |    222222 |
+|          2 | michael    | clark      | australia |          1 |    111111 |    222222 |
+|          1 | devine     | putin      | france    |          1 |    111111 |    222222 |
+|          4 | mark       | strauss    | america   |          2 |   1212121 |     33333 |
+|          3 | ethon      | miller     | england   |          2 |   1212121 |     33333 |
+|          2 | michael    | clark      | australia |          2 |   1212121 |     33333 |
+|          1 | devine     | putin      | france    |          2 |   1212121 |     33333 |
+|          4 | mark       | strauss    | america   |          3 |    123123 |    321256 |
+|          3 | ethon      | miller     | england   |          3 |    123123 |    321256 |
+|          2 | michael    | clark      | australia |          3 |    123123 |    321256 |
+|          1 | devine     | putin      | france    |          3 |    123123 |    321256 |
+|          4 | mark       | strauss    | america   |          4 |    324586 |    456321 |
+|          3 | ethon      | miller     | england   |          4 |    324586 |    456321 |
+|          2 | michael    | clark      | australia |          4 |    324586 |    456321 |
+|          1 | devine     | putin      | france    |          4 |    324586 |    456321 |
++------------+------------+------------+-----------+------------+-----------+-----------+
+16 rows in set (0.00 sec)
+
+mysql> select stud_id,stud_fname from students cross join contact;
+ERROR 1054 (42S22): Unknown column 'stud_id' in 'field list'
+mysql> select student_id,stud_fname from students cross join contact;
++------------+------------+
+| student_id | stud_fname |
++------------+------------+
+|          4 | mark       |
+|          3 | ethon      |
+|          2 | michael    |
+|          1 | devine     |
+|          4 | mark       |
+|          3 | ethon      |
+|          2 | michael    |
+|          1 | devine     |
+|          4 | mark       |
+|          3 | ethon      |
+|          2 | michael    |
+|          1 | devine     |
+|          4 | mark       |
+|          3 | ethon      |
+|          2 | michael    |
+|          1 | devine     |
++------------+------------+
+16 rows in set (0.01 sec)
+
+mysql> select stud_id,city,cellphone from students cross join contact;
+ERROR 1054 (42S22): Unknown column 'stud_id' in 'field list'
+mysql> select student_id,city,cellphone from students cross join contact;
++------------+-----------+-----------+
+| student_id | city      | cellphone |
++------------+-----------+-----------+
+|          4 | america   |    111111 |
+|          3 | england   |    111111 |
+|          2 | australia |    111111 |
+|          1 | france    |    111111 |
+|          4 | america   |   1212121 |
+|          3 | england   |   1212121 |
+|          2 | australia |   1212121 |
+|          1 | france    |   1212121 |
+|          4 | america   |    123123 |
+|          3 | england   |    123123 |
+|          2 | australia |    123123 |
+|          1 | france    |    123123 |
+|          4 | america   |    324586 |
+|          3 | england   |    324586 |
+|          2 | australia |    324586 |
+|          1 | france    |    324586 |
++------------+-----------+-----------+
+16 rows in set (0.00 sec)
+
+mysql> 
+

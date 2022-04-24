@@ -1,0 +1,48 @@
+JOINS- 
+It is used to retrieve data from multiple tables and returns the combined results from 2 or more tables through a condition(1 or more).
+Joins operation is performed whenever we need to fetch data records from multiple tables.
+Joins are used with SELECT STATEMENT.
+
+INNER JOIN (simple join)-
+
+It is the most common type of join.
+It is used to return all rows from multiple tables where the join condition is satisfied.
+Inner Join is used to returns only those results from the tables that match the specified condition and hides other rows and columns.
+Inner Join can be used with clauses like GROUP BY,USING,WHERE,ORDER BY and also with OPERATORS.
+The WHERE and ON condition in the Inner Join clause always returns equivalent results.
+It can be used for multiple tables togetherly.
+MySQL assumes it as a default Join, so it is optional to use the Inner Join keyword with the query.
+
+LEFT OUTER JOIN (LEFT JOIN)-
+
+Returns all rows from the left hand table(Ex-table1) specified in the ON condition and only those rows from the other table(Ex-table2) where the join condition is fulfilled.
+It is used to query records from multiple tables.
+It will return all the records from the first (left-side) table, even no matching records found from the second (right side) table.
+It returns NULL,if it will not find any matches record from the right side table. i.e. it returns all the rows from the left table and matched records from the right table or returns Null if no matching record found.
+i.e. THE RESULT-SET WILL CONTAIN NULL VALUE IF THERE IS NO MATCHING ROW ON THE RIGHT SIDE TABLE.
+IT JOINS TWO OR MORE TABLES, RETURNS ALL RECORDS FROM THE LEFT TABLE, AND MATCHING ROWS FROM THE RIGHT-HAND TABLE.
+That it returns all records from the left-hand table and only the matching records from the right side table.
+It can be used with clauses like GROUP BY,USING,WHERE,ORDER BY and also with OPERATORS.
+It can be used for multiple tables togetherly.
+
+RIGHT OUTER JOIN (RIGHT JOIN)-
+
+Right Outer Join returns all rows from the RIGHT-hand table(Ex-table2) specified in the ON condition and only those rows from the other table(Ex-table1) where he join condition is fulfilled.
+Right Join is used to joins two or more tables and returns all rows from the right-hand table, and only those results from the other table that fulfilled the join condition.
+If it finds unmatched records from the left side table, it returns Null value.
+i.e. THE RESULT-SET WILL CONTAIN NULL VALUE IF THERE IS NO MATCHING ROW ON THE LEFT SIDE TABLE.
+IT IS USED TO JOIN TWO OR MORE TABLES, RETURNS ALL RECORDS FROM THE RIGHT TABLE, AND MATCHING ROWS FROM THE LEFT-HAND TABLE.
+Right Outer Join returns all records from the left-hand table and only the matching records from the other table
+It is similar to the Left Join, except it gives the reverse result of the join tables.
+In the Right Join, if the tables contain the same column name, then ON and USING clause give the equivalent results.
+This Join starts selecting the columns from the right-hand table and matches each record of this table form the left table. If both records fulfill the given join condition, it combines all columns in a new row set that will be returned as output. If the rows of the right-side table do not find any matching rows form the left table, it combines those rows from the right-side table with Null values. It means, the Right Join returns all data from the right-side table weather it matches the rows form the left table or not. 
+It can be used with clauses like GROUP BY,USING,WHERE,ORDER BY and also with OPERATORS.
+It can be used for multiple tables togetherly.
+
+CROSS JOIN-
+
+It is used to combine all possibilities of the two or more tables and returns the result that contains every row from all contributing tables.
+The CROSS JOIN is also known as CARTESIAN JOIN, which provides the Cartesian product of all associated tables.
+i.e. all rows present in the first table multiplied by all rows present in the second table.
+It is similar to the Inner Join, where the join condition is not available with this clause.
+This is always used with SELECT statement.
