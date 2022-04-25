@@ -505,4 +505,185 @@ mysql> select student_id,city,cellphone from students cross join contact;
 16 rows in set (0.00 sec)
 
 mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> select * from students;
++------------+------------+------------+-----------+
+| student_id | stud_fname | stud_lname | city      |
++------------+------------+------------+-----------+
+|          1 | devine     | putin      | france    |
+|          2 | michael    | clark      | australia |
+|          3 | ethon      | miller     | england   |
+|          4 | mark       | strauss    | america   |
++------------+------------+------------+-----------+
+4 rows in set (0.03 sec)
 
+mysql> select * from customers;
++-------------+---------------+------------------+
+| customer_id | customer_name | customer_address |
++-------------+---------------+------------------+
+|         101 | rahul         | delhi            |
+|         102 | rohini        | mumbai           |
+|         102 | rohit         | chennai          |
++-------------+---------------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employees;
++--------+----------+-----------+
+| emp_id | emp_name | city      |
++--------+----------+-----------+
+|      1 | virat    | bangalore |
+|      2 | sawle    | pune      |
+|      1 | virat    | bangalore |
+|      2 | sawle    | pune      |
++--------+----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customers INNER JOIN employees ON customers.customer_id=employees.emp_id;
+Empty set (0.00 sec)
+
+mysql> select customer_id,customer_address,emp_name from customers INNER JOIN employees ON customers.customer_id=employees.emp_id;
+Empty set (0.00 sec)
+
+mysql> select customers.customer_id,customers.customer_address,employees.emp_name from customers INNER JOIN employees ON customers.customer_id=employees.emp_id;
+Empty set (0.00 sec)
+
+mysql> select employees.emp_name,customers.customer_name
+    -> from employees 
+    -> INNER JOIN customers 
+    -> ON customers.customer_id=employees.emp_id;
+Empty set (0.00 sec)
+
+mysql> update employees set emp_id=101 where city='bangalore';
+Query OK, 2 rows affected (0.12 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> update employees set emp_id=102 where city='pune';
+Query OK, 2 rows affected (0.20 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from employees;
++--------+----------+-----------+
+| emp_id | emp_name | city      |
++--------+----------+-----------+
+|    101 | virat    | bangalore |
+|    102 | sawle    | pune      |
+|    101 | virat    | bangalore |
+|    102 | sawle    | pune      |
+|      2 | mayank   | punjab    |
+|      4 | ganesh   | bidar     |
++--------+----------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> update employees set emp_id=103 where city='punjab';
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employees set emp_id=104 where city='bidar';
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employees;
++--------+----------+-----------+
+| emp_id | emp_name | city      |
++--------+----------+-----------+
+|    101 | virat    | bangalore |
+|    102 | sawle    | pune      |
+|    101 | virat    | bangalore |
+|    102 | sawle    | pune      |
+|    103 | mayank   | punjab    |
+|    104 | ganesh   | bidar     |
++--------+----------+-----------+
+6 rows in set (0.00 sec)
+ 
+mysql> select employees.emp_name,customers.customer_name
+    -> from employees 
+    -> INNER JOIN customers 
+    -> ON employees.emp_id=customers.customer_id;
++----------+---------------+
+| emp_name | customer_name |
++----------+---------------+
+| virat    | rahul         |
+| sawle    | rohit         |
+| sawle    | rohini        |
+| virat    | rahul         |
+| sawle    | rohit         |
+| sawle    | rohini        |
++----------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> select employees.emp_name,customers.customer_name
+    -> from employees 
+    -> INNER JOIN customers 
+    -> ON employees.emp_id=customers.customer_id;
++----------+---------------+
+| emp_name | customer_name |
++----------+---------------+
+| virat    | rahul         |
+| sawle    | rohit         |
+| sawle    | rohini        |
+| virat    | rahul         |
+| sawle    | rohit         |
+| sawle    | rohini        |
++----------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> from employees 
+    -> INNER JOIN customers 
+    -> INNER JOIN customers
+    -> ;
+
+mysql> select *
+    -> from employees 
+    -> INNER JOIN customers 
+    -> ON employees.emp_id=customers.customer_id;
++--------+----------+-----------+-------------+---------------+------------------+
+| emp_id | emp_name | city      | customer_id | customer_name | customer_address |
++--------+----------+-----------+-------------+---------------+------------------+
+|    101 | virat    | bangalore |         101 | rahul         | delhi            |
+|    102 | sawle    | pune      |         102 | rohit         | chennai          |
+|    102 | sawle    | pune      |         102 | rohini        | mumbai           |
+|    101 | virat    | bangalore |         101 | rahul         | delhi            |
+|    102 | sawle    | pune      |         102 | rohit         | chennai          |
+|    102 | sawle    | pune      |         102 | rohini        | mumbai           |
++--------+----------+-----------+-------------+---------------+------------------+
+6 rows in set (0.00 sec)
+
+mysql> update  employees set emp_id=2;
+Query OK, 6 rows affected (0.18 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql> select * from employees;
++--------+----------+-----------+
+| emp_id | emp_name | city      |
++--------+----------+-----------+
+|      2 | virat    | bangalore |
+|      2 | sawle    | pune      |
+|      2 | virat    | bangalore |
+|      2 | sawle    | pune      |
+|      2 | mayank   | punjab    |
+|      2 | ganesh   | bidar     |
++--------+----------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from customers;
++-------------+---------------+------------------+
+| customer_id | customer_name | customer_address |
++-------------+---------------+------------------+
+|         101 | rahul         | delhi            |
+|         102 | rohini        | mumbai           |
+|         102 | rohit         | chennai          |
++-------------+---------------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employees inner join customers on employees.emp_id=customers.customer_id;
+Empty set (0.00 sec)
+
+mysql> select customers.customer_name,employees.emp_name from employees inner join customers on employees.emp_id=customers.customer_id;
+Empty set (0.00 sec)
+
+mysql> select customers.customer_name,employees.emp_name from employees inner join customers on customers.customer_id=employees.emp_id;
+Empty set (0.00 sec)
+
+mysql> 
